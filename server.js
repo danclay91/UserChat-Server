@@ -5,7 +5,20 @@ var io = require('socket.io')(http);
 var MongoClient = require('mongodb').MongoClient;
 var assert = require('assert'); 
 var bodyParser = require('body-parser');
+var mongoose = require('mongoose');
+mongoose.connect('mongodb://localhost/test');
 
+//var Cat = mongoose.model('Cat', {name: String});
+/*
+var kitty = new Cat({name: 'Zildjian'});
+kitty.save(function(err){
+	if(err){
+		console.log(err);
+	} else {
+		console.log('meow');
+	}
+});
+*/
 app.use(bodyParser.json()); 
 
 var url = 'mongodb://localhost:27017/UserChat';
@@ -16,7 +29,16 @@ MongoClient.connect(url, function(err, db){
 	db.close(); 
 })
 
-var findUser = function(db, userInfo, callback){
+/*
+Cat.find(function (err, kittens){
+	if (err) return console.error(err);
+	console.log(kittens);
+});*/
+
+//Cat.find({ id: "Zildjian"}, function(cat){
+//	console.log(cat.name);
+//});
+/*var findUser = function(db, userInfo, callback){
 	username = userInfo.username;
 	password = userInfo.password;
 	 db.collection('users').find({"username":username,"password":password}).toArray(function(err, documents){
@@ -34,10 +56,10 @@ var findUser = function(db, userInfo, callback){
 
 
 }
-
-app.get('/', function(req, res){
+*/
+app.get('/test', function(req, res){
 	console.log('Got a request');
-	res.send('<h1>Hello World!</h1>')
+	res.send('Hello from server');
 })
 
 app.post('/login', function(req, res){
